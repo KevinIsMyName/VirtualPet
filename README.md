@@ -1,2 +1,2 @@
 # VirtualPet
-Made for CS164 at Drexel
+Made for CS164 at Drexel University

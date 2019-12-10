@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Virtual Pet</title>
+    <style>
+        @font-face {
+            font-family: Playfair_Display;
+            src: url("./fonts/Playfair_Display/PlayfairDisplay-Regular.ttf");
+        }
+
+        html {
+            background-image: url("qbkls.png");
+        }
+
+        img {
+            height: 30%;
+            width: 30%;
+        }
+    </style>
+    <script>
+        var counter = 0;
+
+        function changeMood() {
+            var corgiImages = ["./corgi/happyCorgi.jpg", "./corgi/hungryCorgi.jpg", "./corgi/angryCorgi.jpg", "./corgi/sleepyCorgi.JPG"];
+            var corgiImagesAlt = ["Happy Corgi", "Hungry Corgi", "Angry Corgi", "Sleepy Corgi"];
+            var corgiText = ["Corgi is happy.", "Corgi is hungry.", "Corgi is angry.", "Corgi is sleepy."];
+            if (counter === 3) {
+                counter = 0;
+            }
+            else {
+                counter++;
+            }
+            document.getElementById("image").src = corgiImages[counter];
+            document.getElementById("image").alt = corgiImagesAlt[counter];
+            document.getElementById("text").innerText = corgiText[counter];
+        }
+    </script>
+</head>
+<body>
+<h1>Virtual Pet</h1>
+<input type="button" id="clickButton" value="Fast forward!" onclick="changeMood()">
+<h3 id="text">Corgi is happy.</h3>
+<img src="./corgi/happyCorgi.jpg" id="image"> <br>
+</body>
+</html>

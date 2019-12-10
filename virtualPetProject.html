@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Virtual Pet (Third Project)</title>
+    <style>
+        @font-face {
+            font-family: Playfair_Display;
+            src: url(./fonts/Playfair_Display/PlayfairDisplay-Regular.ttf);
+        }
+
+        html {
+            background-image: url("qbkls.png");
+            text-align: center;
+        }
+
+        body {
+            font-family: Playfair_Display;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        img {
+            width: 20%;
+            height: 20%;
+        }
+
+    </style>
+    <script>
+        var timeouts = [];
+
+        var sleepiness = false;
+
+        function wake() {
+            hideActionButtons();
+            document.getElementById("sleepButton").style.visibility = "hidden";
+            document.getElementById("resetButton").style.visibility = "visible";
+
+            document.getElementById("relax").onclick = relax;
+            document.getElementById("feed").onclick = feed;
+            document.getElementById("play").onclick = play;
+            document.getElementById("flee").onclick = flee;
+            document.getElementById("sleep").onclick = sleep;
+
+            document.getElementById("image").src = "./tomandjerry/waking.png";
+            document.getElementById("image").style = "width: 50%; height 50%;";
+            document.getElementById("message").innerText = "Jerry is now awake.";
+
+            timeouts.push(setTimeout(function () {
+                document.getElementById("image").src = "./tomandjerry/happy.jpg";
+                document.getElementById("image").style = "width: 30%; height 30%;";
+                document.getElementById("message").innerText = "Jerry feels happy!";
+                document.getElementById("relaxButton").style.visibility = "visible";
+                document.getElementById("relaxButton").style.visibility = "visible";
+                document.getElementById("feedButton").style.visibility = "visible";
+                document.getElementById("playButton").style.visibility = "visible";
+            }, 3000));
+        }
+
+        function relax() {
+            var randomFloat = Math.random();
+            if (randomFloat > 0.66) {
+                tomChasingJerry();
+            }
+            else {
+                document.getElementById("image").src = "./tomandjerry/relaxing.png";
+                document.getElementById("image").style = "width: 50%; height 50%;";
+                document.getElementById("message").innerText = "Jerry is relaxing.";
+
+                hideActionButtons();
+                document.getElementById("sleepButton").style.visibility = "hidden";
+                document.getElementById("resetButton").style.visibility = "visible";
+
+                timeouts.push(setTimeout(function () {
+                    document.getElementById("image").src = "./tomandjerry/hungry.gif";
+                    document.getElementById("message").innerText = "Jerry wants something to eat.";
+                    document.getElementById("feedButton").style.visibility = "visible";
+
+                }, 3000));
+                timeouts.push(setTimeout(function () {
+                }, 4450));
+            }
+        }
+
+        function feed() {
+            hideActionButtons();
+            document.getElementById("sleepButton").style.visibility = "hidden";
+
+            document.getElementById("image").src = "./tomandjerry/eating.jpeg";
+            document.getElementById("image").style = "width: 35%; height 35%;";
+            document.getElementById("message").innerText = "Jerry is eating.";
+            timeouts.push(setTimeout(function () {
+                document.getElementById("image").src = "./tomandjerry/full.jpg";
+                document.getElementById("image").style = "width: 50%; height 50%;";
+                document.getElementById("message").innerText = "Jerry feels full.";
+                hideActionButtons();
+                if (sleepiness === true) {
+                    document.getElementById("sleepButton").style.visibility = "visible";
+                }
+                document.getElementById("relaxButton").style.visibility = "visible";
+                document.getElementById("playButton").style.visibility = "visible";
+            }, 3000));
+        }
+
+        function play() {
+            hideActionButtons();
+	    document.getElementById("sleepButton").style.visibility = "hidden";
+            document.getElementById("image").src = "./tomandjerry/provoking.jpg";
+            document.getElementById("image").style = "width: 50%; height 50%;";
+            document.getElementById("message").innerText = "Jerry is playing with Tom.";
+
+            timeouts.push(setTimeout(function () {
+                document.getElementById("image").src = "./tomandjerry/provoking2.jpg";
+                document.getElementById("message").innerText = "Jerry is about to be chased by Tom. Quick, run away!";
+                document.getElementById("fleeButton").style.visibility = "visible";
+            }, 3000));
+            timeouts.push(setTimeout(function () {
+                document.getElementById("image").src = "./tomandjerry/fleeing.jpg";
+                document.getElementById("message").innerText = "Run away before Tom catches Jerry!";
+            }, 6000));
+            timeouts.push(setTimeout(function () {
+                hideActionButtons();
+                document.getElementById("image").src = "./tomandjerry/caught.jpg";
+                document.getElementById("message").innerText = "Jerry has been captured by Tom and will soon be eaten!";
+            }, 9000));
+        }
+i
+        function flee() {
+            stopAllTimeouts();
+            hideActionButtons();
+            document.getElementById("image").src = "./tomandjerry/escaping.jpg";
+            document.getElementById("image").style = "width: 50%; height 50%;";
+            document.getElementById("message").innerText = "Jerry has escaped!";
+            document.getElementById("sleepButton").style.visibility = "hidden";
+            if (sleepiness === true) {
+                document.getElementById("sleepButton").style.visibility = "visible";
+            }
+
+            timeouts.push(setTimeout(function () {
+                document.getElementById("image").src = "./tomandjerry/tired.jpg";
+                document.getElementById("message").innerText = "Jerry feels very tired now.";
+
+                document.getElementById("relaxButton").style.visibility = "visible";
+                document.getElementById("feedButton").style.visibility = "visible";
+                document.getElementById("playButton").style.visibility = "visible";
+                document.getElementById("sleepButton").style.visibility = "visible";
+                sleepiness = true;
+            }, 3000));
+        }
+
+        function sleep() {
+            hideActionButtons();
+            document.getElementById("sleepButton").style.visibility = "hidden";
+            document.getElementById("wakeButton").style.visibility = "visible";
+            document.getElementById("image").src = "./tomandjerry/sleeping.png";
+            document.getElementById("message").innerText = "Jerry has gone to bed.";
+            sleepiness = false;
+        }
+
+        function tomChasingJerry() {
+            stopAllTimeouts();
+            hideActionButtons();
+            document.getElementById("sleepButton").style.visibility = "hidden";
+            document.getElementById("image").src = "./tomandjerry/tom.jpg";
+            document.getElementById("message").innerText = "Tom is feeling mischievous!";
+            timeouts.push(setTimeout(function () {
+                document.getElementById("image").src = "./tomandjerry/fleeing.jpg";
+                document.getElementById("message").innerText = "Jerry is being chased by Tom! Quick, run away!";
+                document.getElementById("fleeButton").style.visibility = "visible";
+            }, 3000));
+            timeouts.push(setTimeout(function () {
+                document.getElementById("image").src = "./tomandjerry/escaping.jpg";
+                document.getElementById("message").innerText = "Jerry has been captured by Tom and will soon be eaten!";
+
+                document.getElementById("relaxButton").style.visibility = "visible";
+                document.getElementById("feedButton").style.visibility = "visible";
+                document.getElementById("playButton").style.visibility = "visible";
+            }, 6000));
+        }
+
+        function reset() {
+            stopAllTimeouts();
+            document.getElementById("image").src = "./tomandjerry/sleeping.png";
+            document.getElementById("image").style = "width: 50%; height 50%;";
+            document.getElementById("message").innerText = "";
+            document.getElementById("message").innerText = "Jerry is sleeping.";
+
+            hideActionButtons();
+            document.getElementById("resetButton").style.visibility = "hidden";
+            document.getElementById("wakeButton").style.visibility = "visible";
+            document.getElementById("sleepButton").style.visibility = "hidden";
+            /*document.getElementById("resetButton").style.visibility = "hidden";
+            document.getElementById("wakeButton").style.visibility = "visible";
+            document.getElementById("relaxButton").style.visibility = "hidden";
+            document.getElementById("feedButton").style.visibility = "hidden";
+            document.getElementById("playButton").style.visibility = "hidden";
+            document.getElementById("fleeButton").style.visibility = "hidden";
+            */
+        }
+
+        function hideActionButtons() {
+            document.getElementById("wakeButton").style.visibility = "hidden";
+            document.getElementById("relaxButton").style.visibility = "hidden";
+            document.getElementById("feedButton").style.visibility = "hidden";
+            document.getElementById("playButton").style.visibility = "hidden";
+            document.getElementById("fleeButton").style.visibility = "hidden";
+        }
+
+        function stopAllTimeouts() {
+            for (var i = 0; i < timeouts.length; i++) {
+                clearTimeout(timeouts[i]);
+            }
+        }
+
+        function doNothing() {
+
+        }
+    </script>
+</head>
+<body>
+<h1>Jerry the Mouse Virtual Pet</h1>
+<center>
+    <span id="resetButton"><input type="button" value="Reset" onclick="reset()"></span>
+</center>
+<span id="wakeButton"><input type="button" id="wake" value="Wake" onclick="wake()"></span>
+<span id="relaxButton"><input type="button" id="relax" value="Relax" onclick="doNothing()"></span>
+<span id="feedButton"><input type="button" id="feed" value="Feed" onclick="doNothing()"></span>
+<span id="playButton"><input type="button" id="play" value="Play with Tom" onclick="doNothing()"></span>
+<span id="fleeButton"><input type="button" id="flee" value="Run away!" onclick="doNothing()"></span>
+<span id="sleepButton"><input type="button" id="sleep" value="Sleep" onclick="doNothing()"></span>
+<p id="message">Jerry is sleeping.</p>
+<center>
+    <img src="./tomandjerry/sleeping.png" style="width: 50%; height: 50%" id="image">
+</center><br><br>
+<center>
+<a href="./virtualPetProjectDocumentation.pdf">Documentation / State Machine/ More Information / For Developers</a>
+</center>
+</body>
+</html>
+
